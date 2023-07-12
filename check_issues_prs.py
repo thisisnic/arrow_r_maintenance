@@ -2,7 +2,7 @@ import requests
 import datetime
 import os
 
-GITHUB_API_TOKEN = os.environ["GITHUB_PAT"]
+GITHUB_API_TOKEN = os.environ['GH_API_TOKEN']
 SLACK_WEBHOOK = os.environ['SLACK_WEBHOOK']
 
 DEBUG = False
