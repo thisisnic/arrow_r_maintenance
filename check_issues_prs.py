@@ -2,7 +2,7 @@ import requests
 import datetime
 import os
 
-GITHUB_API_TOKEN = os.environ['GH_API_TOKEN']
+GH_API_TOKEN = os.environ['GH_API_TOKEN']
 SLACK_WEBHOOK = os.environ['SLACK_WEBHOOK']
 
 DEBUG = False
@@ -16,7 +16,7 @@ def get_all_prs():
     page_num=1
     while True:
             open_prs = requests.get("https://api.github.com/repos/apache/arrow/pulls?per_page=100&page=%s" % page_num, 
-    headers={"Accept": "application/vnd.github.v3+json", "Authorization": f"token {GITHUB_API_TOKEN}"})
+    headers={"Accept": "application/vnd.github.v3+json", "Authorization": f"token {GH_API_TOKEN}"})
             prs.extend(open_prs.json())
 
             # the response is paginated, so we need to check for a link to the next page
@@ -56,7 +56,7 @@ def get_all_issues(component_label):
     page_num=1
     while True:
             open_issues = requests.get("https://api.github.com/repos/apache/arrow/issues?labels=%s&per_page=100&page=%s" % (component_label, page_num), 
-    headers={"Accept": "application/vnd.github.v3+json", "Authorization": f"token {GITHUB_API_TOKEN}"})
+    headers={"Accept": "application/vnd.github.v3+json", "Authorization": f"token {GH_API_TOKEN}"})
             issues.extend(open_issues.json())
 
             # the response is paginated, so we need to check for a link to the next page
