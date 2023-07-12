@@ -1,7 +1,6 @@
 import requests
 import datetime
 import os
-from IPython.display import display, Markdown, Latex
 
 GITHUB_API_TOKEN = os.environ["GITHUB_PAT"]
 SLACK_WEBHOOK = os.environ['SLACK_WEBHOOK']
