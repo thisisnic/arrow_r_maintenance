@@ -1,0 +1,21 @@
+name: Report PullRequest, Triaging and Maintenance
+on:
+  workflow_dispatch:
+  schedule:
+      - cron:  '30 06 * * *'
+jobs:
+  build:
+    name: Report Maintenance
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade requests
+      - name: Send Maintenance Report
+        env:
+          GITHUB_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+        run: |
+          python check_issues_prs.py
