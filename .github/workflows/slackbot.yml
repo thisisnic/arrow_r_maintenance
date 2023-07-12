@@ -15,7 +15,7 @@ jobs:
           python -m pip install --upgrade requests
       - name: Send Maintenance Report
         env:
-          GITHUB_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
+          GH_API_TOKEN: ${{ secrets.GH_API_TOKEN }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
         run: |
           python check_issues_prs.py
