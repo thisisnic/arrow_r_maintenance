@@ -184,51 +184,26 @@ def generate_message(bugs, prs):
     message["prs"] += prs_message + "\n"
     return message
 
-def send_message(message, title, webhook):
-    if DEBUG:
-        print(title)
-        print(message)
-        print("")
-        return
+def send_message(message, webhook):
     
-    resp = requests.post(webhook, json={
-        "blocks": [
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": f"*{title}*"
+    for component in ["to_triage", "to_fix", "prs"]:    
+        resp = requests.post(webhook, json={            
+            "blocks": [
+                {
+                    "type": "section",
+                    "text": {
+                        "type": "mrkdwn",
+                        "text": message[component]
+                    }
+                },
+                {
+                        "type": "divider"
                 }
-            },
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": message["to_triage"]
-                }
-            },
-            {
-                    "type": "divider"
-            },
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": message["to_fix"]
-                }
-            },
-            {
-                    "type": "divider"
-            },
-            {
-                "type": "section",
-                "text": {
-                    "type": "mrkdwn",
-                    "text": message["prs"]
-                }
-            }
-        ]        
-    })
+            ]        
+        })
+
+
+        print("\tSLACK ANSWER", resp.content)
     
     
     print("\tSLACK ANSWER", resp.content)
@@ -247,5 +222,5 @@ if __name__ == "__main__":
     
     # Generate and send message
     message = generate_message(bugs, open_r_prs)
-    send_message(message, title = "R PRs and Issues Summary", webhook = ZULIP_WEBHOOK)
-    send_message(message, title = "R PRs and Issues Summary", webhook = SLACK_WEBHOOK)
+    send_message(message, webhook = ZULIP_WEBHOOK)
+    send_message(message, webhook = SLACK_WEBHOOK)
