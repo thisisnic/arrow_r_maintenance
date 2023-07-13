@@ -4,6 +4,7 @@ import os
 
 GH_API_TOKEN = os.environ['GH_API_TOKEN']
 SLACK_WEBHOOK = os.environ['SLACK_WEBHOOK']
+ZULIP_WEBHOOK = os.environ['ZULIP_WEBHOOK']
 
 DEBUG = False
 
@@ -183,14 +184,14 @@ def generate_message(bugs, prs):
     message["prs"] += prs_message + "\n"
     return message
 
-def send_slack_message(message, title):
+def send_slack_message(message, title, webhook):
     if DEBUG:
         print(title)
         print(message)
         print("")
         return
     
-    resp = requests.post(SLACK_WEBHOOK, json={
+    resp = requests.post(webhook, json={
         "blocks": [
             {
                 "type": "section",
@@ -246,4 +247,5 @@ if __name__ == "__main__":
     
     # Generate and send message
     message = generate_message(bugs, open_r_prs)
-    send_slack_message(message, title = "R PRs and Issues Summary")
+    send_slack_message(message, title = "R PRs and Issues Summary", webhook = ZULIP_WEBHOOK)
+    send_slack_message(message, title = "R PRs and Issues Summary", webhook = SLACK_WEBHOOK)
