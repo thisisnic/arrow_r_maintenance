@@ -202,11 +202,7 @@ def send_message(message, webhook):
             ]        
         })
 
-
-        print("\tSLACK ANSWER", resp.content)
-    
-    
-    print("\tSLACK ANSWER", resp.content)
+        print("\tSLACK ANSWER", resp.content)    
 
 if __name__ == "__main__":
     
