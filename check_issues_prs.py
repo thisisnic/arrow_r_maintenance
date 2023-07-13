@@ -184,7 +184,7 @@ def generate_message(bugs, prs):
     message["prs"] += prs_message + "\n"
     return message
 
-def send_slack_message(message, title, webhook):
+def send_message(message, title, webhook):
     if DEBUG:
         print(title)
         print(message)
@@ -247,5 +247,5 @@ if __name__ == "__main__":
     
     # Generate and send message
     message = generate_message(bugs, open_r_prs)
-    send_slack_message(message, title = "R PRs and Issues Summary", webhook = ZULIP_WEBHOOK)
-    send_slack_message(message, title = "R PRs and Issues Summary", webhook = SLACK_WEBHOOK)
+    send_message(message, title = "R PRs and Issues Summary", webhook = ZULIP_WEBHOOK)
+    send_message(message, title = "R PRs and Issues Summary", webhook = SLACK_WEBHOOK)
