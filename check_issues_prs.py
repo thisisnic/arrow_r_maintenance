@@ -3,7 +3,6 @@ import datetime
 import os
 
 GH_API_TOKEN = os.environ['GH_API_TOKEN']
-SLACK_WEBHOOK = os.environ['SLACK_WEBHOOK']
 ZULIP_WEBHOOK = os.environ['ZULIP_WEBHOOK']
 
 DEBUG = False
@@ -219,4 +218,3 @@ if __name__ == "__main__":
     # Generate and send message
     message = generate_message(bugs, open_r_prs)
     send_message(message, webhook = ZULIP_WEBHOOK)
-    send_message(message, webhook = SLACK_WEBHOOK)
